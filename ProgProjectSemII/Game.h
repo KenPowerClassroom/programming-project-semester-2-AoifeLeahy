@@ -8,14 +8,16 @@
 
 #include "Globals.h"   // include Global header file
 #include "Player.h"   // include Player header file
+#include "Enemy.h"   // include Enemy header file
 
 
 class Game
 {
 	// private data members
 
-	// put your game objects here eg player object and 
-	// array of enemy objects etc.
+	Player myPlayer;// player object
+	static const int MAX_ENEMIES = 2;
+	Enemy enemy[MAX_ENEMIES]; // enemy array of 2 that protects the key 
 
 	sf::RenderWindow window;
 
@@ -25,8 +27,11 @@ public:
 
 public:	  // declaration of member functions	
 	Game(); // default constructor
-	void	loadContent();
-	void	run();
-	void	update();
-	void	draw();
+	void loadContent();
+	void run();
+	void moveEnemies(); // move the enemy objects within the array
+
+private:
+	void update();
+	void draw();
 };

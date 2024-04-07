@@ -114,13 +114,26 @@ void Game::update()
 	// get keyboard input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
+		myPlayer.moveLeft();
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
+		myPlayer.moveRight();
 	}
-
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		myPlayer.moveDown();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		myPlayer.moveUp();
+	}
 	// update any game variables here ...
-
+	for (int index = 0; index < MAX_ENEMIES; index++)
+	{
+		enemy[index].moveEnemies(enemy, MAX_ENEMIES); // call the function to move the enemy objects
+	}
+	
 }
 
 void Game::draw()
@@ -131,6 +144,13 @@ void Game::draw()
 
 	m_message.setString("Game Play");
 	window.draw(m_message);  // write message to the screen
+
+	window.draw(myPlayer.getBody()); // this draws the player object 
+
+	for (int index = 0; index < MAX_ENEMIES; index++)
+	{
+		window.draw(enemy[index].getBody()); // this draws the enemy object
+	}
 
 	window.display();
 }
