@@ -9,8 +9,13 @@ Player::Player() // default constructor
 {
 	loadImage(); 
 
+	imageWidth = 64;
+
 	int xPos = 1400;
 	int yPos = 380;
+
+	speed = 5; 
+
 	setPosition(xPos, yPos); // sets position of the player
 }
 
@@ -39,39 +44,7 @@ void Player::setPosition(int xPos, int yPos)
 	sprite.setPosition(xPos, yPos);
 }
 
-void Player::moveLeft()
-{
-	sf::Vector2f pos(sprite.getPosition());
 
-	if (pos.x >= SCREEN_WIDTH)
-	{
-		pos.x = -0.0f;
-	}
-	else
-	{
-		pos.x--;
-	}
-	
-
-	sprite.setPosition(pos);
-}
-
-void Player::moveRight()
-{
-	sf::Vector2f pos(sprite.getPosition());
-
-	if (pos.x >= SCREEN_WIDTH)
-	{
-		pos.x = -0.0f;
-	}
-	else
-	{
-		pos.x++;
-	}
-	
-	sprite.setPosition(pos);
-
-}
 
 void Player::moveDown()
 {
@@ -83,7 +56,7 @@ void Player::moveDown()
 	}
 	else
 	{
-		pos.y++;
+		pos.y+= speed;
 	}
 	
 
@@ -94,14 +67,45 @@ void Player::moveUp()
 {
 	sf::Vector2f pos(sprite.getPosition());
 
-	if (pos.y >= SCREEN_HEIGHT)
+	if (pos.y < 0)
 	{
-		pos.y = -0.0f;
+		pos.y = 0;
 	}
 	else
 	{
-		pos.y--;
+		pos.y-= speed;
 	}
+
+	sprite.setPosition(pos);
+}
+
+void Player::moveRight()
+{
+	sf::Vector2f pos(sprite.getPosition());
+
+	pos.x+= speed;
+
+	if (pos.x >= SCREEN_WIDTH - imageWidth)
+	{
+		pos.x = SCREEN_WIDTH - imageWidth;
+	}
+	
+
+	sprite.setPosition(pos);
+}
+
+void Player::moveLeft()
+{
+	sf::Vector2f pos(sprite.getPosition());
+
+	pos.x-= speed;
+
+	if (pos.x <= 0)
+	{
+		pos.x = 0;
+	}
+
+
 
 	sprite.setPosition(pos);
 }

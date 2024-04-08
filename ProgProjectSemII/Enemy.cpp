@@ -10,6 +10,10 @@ Enemy::Enemy()
 {
 	loadImage(); // loads the image
 
+	imageWidth = 64;
+
+	//initialPosx = (SCREEN_WIDTH / 2) - (imageWidth / 2);
+
 	setPosition(100, 400); // this sets the position for the enemy
 
 }

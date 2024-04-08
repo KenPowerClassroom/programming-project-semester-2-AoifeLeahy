@@ -118,7 +118,7 @@ void Game::update()
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		myPlayer.moveRight();
+		myPlayer.moveRight(); 
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{

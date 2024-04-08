@@ -15,6 +15,8 @@ class Enemy
 	int direction; // direction of enemy
 	int speed; // enemy speed
 	int timesHit; // number of times the enemy is hit
+	//int initialPosx; 
+	int imageWidth; // the width of the pixels of the enemy image
 
 	// private data members
 

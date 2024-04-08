@@ -10,6 +10,7 @@ class Player
 	sf::Texture texture; // the texture for the player 
 	sf::Sprite sprite; // sprite used to represent the player
 
+	int imageWidth; // the widt of the player 
 	int score; // player score
 	int noOfLives; // number of lives the player has. When reaches 0, player dies.
 	int direction; // the direction in which the player is facing
