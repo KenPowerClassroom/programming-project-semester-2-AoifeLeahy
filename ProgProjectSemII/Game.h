@@ -17,7 +17,7 @@ class Game
 
 	Player myPlayer;// player object
 	static const int MAX_ENEMIES = 2;
-	Enemy enemy[MAX_ENEMIES]; // enemy array of 2 that protects the key 
+	Enemy enemies[MAX_ENEMIES]; // enemy array of 2 that protects the key 
 
 	sf::RenderWindow window;
 
@@ -30,6 +30,7 @@ public:	  // declaration of member functions
 	void loadContent();
 	void run();
 	void moveEnemies(); // move the enemy objects within the array
+	void initializeArray();
 
 private:
 	void update();

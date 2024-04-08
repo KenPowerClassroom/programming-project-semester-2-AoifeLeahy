@@ -46,6 +46,7 @@ int main()
 Game::Game() : window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<int>(SCREEN_HEIGHT)), "Joint Project Game", sf::Style::Default)
 // Default constructor
 {
+	initializeArray();
 }
 
 void Game::loadContent()
@@ -108,6 +109,12 @@ void Game::run()
 
 }
 
+void Game::initializeArray()
+{
+	enemies[0].setPosition(100, 100);
+	enemies[1].setPosition(100, 200);
+}
+
 void Game::update()
 // This function takes the keyboard input and updates the game world
 {
@@ -131,7 +138,7 @@ void Game::update()
 	// update any game variables here ...
 	for (int index = 0; index < MAX_ENEMIES; index++)
 	{
-		enemy[index].moveEnemies(enemy, MAX_ENEMIES); // call the function to move the enemy objects
+		enemies[index].moveEnemies(); // call the function to move the enemy objects
 	}
 	
 }
@@ -149,7 +156,7 @@ void Game::draw()
 
 	for (int index = 0; index < MAX_ENEMIES; index++)
 	{
-		window.draw(enemy[index].getBody()); // this draws the enemy object
+		window.draw(enemies[index].getBody()); // this draws the enemy object
 	}
 
 	window.display();

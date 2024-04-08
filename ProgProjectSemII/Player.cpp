@@ -10,23 +10,36 @@ Player::Player() // default constructor
 	loadImage(); 
 
 	imageWidth = 64;
+	imageHeight = 64;
 
 	int xPos = 1400;
 	int yPos = 380;
 
-	speed = 5; 
+	speed = 3; 
 
 	setPosition(xPos, yPos); // sets position of the player
 }
 
 void Player::loadImage()
 {
-	if (!texture.loadFromFile("ASSETS//IMAGES//player_left.png"))
+	if (!upTexture.loadFromFile("ASSETS//IMAGES//player_up.png"))
 	{
-		std::cout << "problem loading player image file";
+		std::cout << "problem loading player up image file";
+	}
+	if (!downTexture.loadFromFile("ASSETS//IMAGES//player_down.png"))
+	{
+		std::cout << "problem loading player image down file";
+	}
+	if (!leftTexture.loadFromFile("ASSETS//IMAGES//player_left.png"))
+	{
+		std::cout << "problem loading player image left file";
+	}
+	if (!rightTexture.loadFromFile("ASSETS//IMAGES//player_right.png"))
+	{
+		std::cout << "problem loading player image right file";
 	}
 
-	sprite.setTexture(texture);
+	sprite.setTexture(leftTexture);
 }
 
 sf::Sprite Player::getBody()
@@ -50,17 +63,17 @@ void Player::moveDown()
 {
 	sf::Vector2f pos(sprite.getPosition());
 
-	if (pos.y >= SCREEN_HEIGHT)
+	if (pos.y >= SCREEN_HEIGHT - imageHeight)
 	{
-		pos.y = -0.0f;
+		pos.y = SCREEN_HEIGHT - imageHeight;
 	}
 	else
 	{
 		pos.y+= speed;
 	}
 	
-
 	sprite.setPosition(pos);
+	sprite.setTexture(downTexture);
 }
 
 void Player::moveUp()
@@ -77,6 +90,7 @@ void Player::moveUp()
 	}
 
 	sprite.setPosition(pos);
+	sprite.setTexture(upTexture); 
 }
 
 void Player::moveRight()
@@ -92,6 +106,7 @@ void Player::moveRight()
 	
 
 	sprite.setPosition(pos);
+	sprite.setTexture(rightTexture);
 }
 
 void Player::moveLeft()
@@ -105,7 +120,6 @@ void Player::moveLeft()
 		pos.x = 0;
 	}
 
-
-
 	sprite.setPosition(pos);
+	sprite.setTexture(leftTexture);
 }

@@ -7,10 +7,14 @@
 
 class Player
 {
-	sf::Texture texture; // the texture for the player 
+	sf::Texture upTexture; // the texture for the player facing upwards
+	sf::Texture downTexture; // the texture for the player facing upwards
+	sf::Texture leftTexture; // the texture for the player facing upwards
+	sf::Texture rightTexture; // the texture for the player facing upwards
 	sf::Sprite sprite; // sprite used to represent the player
 
-	int imageWidth; // the widt of the player 
+	int imageWidth; // the width of the player 
+	int imageHeight; //  the height of the player
 	int score; // player score
 	int noOfLives; // number of lives the player has. When reaches 0, player dies.
 	int direction; // the direction in which the player is facing

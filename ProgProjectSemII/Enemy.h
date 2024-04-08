@@ -15,8 +15,9 @@ class Enemy
 	int direction; // direction of enemy
 	int speed; // enemy speed
 	int timesHit; // number of times the enemy is hit
-	//int initialPosx; 
+	 
 	int imageWidth; // the width of the pixels of the enemy image
+	int imageHeight; // the height of the pixels of the enemy image
 
 	// private data members
 
@@ -32,7 +33,7 @@ public:
 	void loadContent(); // used to load content in the player image files
 	void draw(); // draws the enemy
 	void dies(); // used if the enemy dies
-	void moveEnemies(Enemy enemy[], int MAX_ENEMIES); // used to move the enemy up while staying in the boundary of the screen
+	void moveEnemies(); // used to move the enemy up while staying in the boundary of the screen
 	void hit(); // if the enemy is hit by the rock
 
 };

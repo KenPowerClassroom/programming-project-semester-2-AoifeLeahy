@@ -11,10 +11,11 @@ Enemy::Enemy()
 	loadImage(); // loads the image
 
 	imageWidth = 64;
+	imageHeight = 64;
 
-	//initialPosx = (SCREEN_WIDTH / 2) - (imageWidth / 2);
 
 	setPosition(100, 400); // this sets the position for the enemy
+
 
 }
 
@@ -43,23 +44,29 @@ void Enemy::setPosition(int xPos, int yPos)
 	sprite.setPosition(xPos, yPos);
 }
 
-void Enemy::moveEnemies(Enemy enemy[], int MAX_ENEMIES)
+void Enemy::moveEnemies()
 {
-	for (int index = 0; index < MAX_ENEMIES; index++)
-	{
-		sf::Vector2f pos(sprite.getPosition());
+	sf::Vector2f pos(sprite.getPosition());
 
-		if (pos.y > 0)
-		{
-			pos.y --;
-		}
-		else
-		{
-			pos.y = SCREEN_HEIGHT - sprite.getGlobalBounds().height;
-		}
-		
-		sprite.setPosition(pos);
+	if (direction == NORTH)
+	{
+		pos.y -= speed;
 	}
+	else if (direction == SOUTH)
+	{
+		pos.y += speed;
+	}
+	if (pos.y <= 0)
+	{
+		direction = SOUTH;
+	}
+	else if (pos.y >= SCREEN_WIDTH - imageHeight)
+	{
+		direction = NORTH;
+	}
+
+	sprite.setPosition(pos);
 	
 }
+
 
