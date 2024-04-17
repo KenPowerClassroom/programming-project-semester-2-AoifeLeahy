@@ -40,5 +40,5 @@ public:
 	void moveEnemyGuard(); // moves the enemy up and down while staying in the boundary of the screen
 
 	bool movingRight;
-	bool movingUp;
+	bool movingDown;
 };

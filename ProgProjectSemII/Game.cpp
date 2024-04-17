@@ -118,10 +118,10 @@ void Game::initializeArray()
 
 void Game::initializeArray2()
 {
-	enemyGuard[0].setPosition(500, 200);
-	enemyGuard[1].setPosition(500, 350);
-	enemyGuard[2].setPosition(500, 500);
-	enemyGuard[3].setPosition(500, 650);
+	enemyGuard[0].setPosition(500, 100);
+	enemyGuard[1].setPosition(500, 250);
+	enemyGuard[2].setPosition(500, 400);
+	enemyGuard[3].setPosition(500, 550);
 }
 
 void Game::update()

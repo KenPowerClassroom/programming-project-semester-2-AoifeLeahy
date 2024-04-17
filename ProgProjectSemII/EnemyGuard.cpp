@@ -80,15 +80,15 @@ void EnemyGuard::moveEnemyGuard()
 	}
 	if (pos.y <= initialPosY - maxDistance || pos.y >= initialPosY + maxDistance)
 	{
-		movingUp = !movingUp;
+		movingDown = !movingDown;
 	}
-	if (movingUp)
+	if (movingDown)
 	{
-		pos.y -= 1;
+		pos.y += 1;
 	}
 	else
 	{
-		pos.y += 1;
+		pos.y -= 1;
 	}
 	sprite.setPosition(pos);
 
