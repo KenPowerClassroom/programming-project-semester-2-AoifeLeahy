@@ -9,6 +9,7 @@
 #include "Globals.h"   // include Global header file
 #include "Player.h"   // include Player header file
 #include "Enemy.h"   // include Enemy header file
+#include "EnemyGuard.h" // include EnemyGuard header file 
 
 
 class Game
@@ -18,6 +19,9 @@ class Game
 	Player myPlayer;// player object
 	static const int MAX_ENEMIES = 2;
 	Enemy enemies[MAX_ENEMIES]; // enemy array of 2 that protects the key 
+
+	static const int MAX_GUARDS = 4; 
+	EnemyGuard enemyGuard[MAX_GUARDS]; // enemy array of 4 that are guards and shoot
 
 	sf::RenderWindow window;
 
@@ -29,8 +33,8 @@ public:	  // declaration of member functions
 	Game(); // default constructor
 	void loadContent();
 	void run();
-	void moveEnemies(); // move the enemy objects within the array
-	void initializeArray();
+	void initializeArray(); // initializes the array for the first type of enemy (Protectors)
+	void initializeArray2();  // initializes the array for the second type of enemy (Guards)
 
 private:
 	void update();

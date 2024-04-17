@@ -15,7 +15,7 @@ Player::Player() // default constructor
 	int xPos = 1400;
 	int yPos = 380;
 
-	speed = 3; 
+	speed = 4; 
 
 	setPosition(xPos, yPos); // sets position of the player
 }

@@ -1,12 +1,12 @@
-// EnemyProtect class 
+//EnemyGuard class
 
-#include "Enemy.h"   // enemyProtect header file
+#include "EnemyGuard.h"   // enemyProtect header file
 
 // enemy function definitions here
 
-Enemy::Enemy()
+EnemyGuard::EnemyGuard()
 {
-	loadImage(); // loads the image
+	loadImage(); // loads the image 
 
 	imageWidth = 64;
 	imageHeight = 64;
@@ -14,27 +14,28 @@ Enemy::Enemy()
 	speed = 3;
 	direction = NORTH;
 
-	initialPosX = 200;
-	initialPosY = 400;
+	initialPosX = 400;
+	initialPosY = 600;
 
-	setPosition(initialPosX, initialPosY);
+	setPosition(initialPosX, initialPosY); // this sets the position for the enemy
+
 }
 
-void Enemy::loadImage()
+void EnemyGuard::loadImage()
 {
-	if (!upTexture.loadFromFile("ASSETS//IMAGES//enemy1_up.png"))
+	if (!upTexture.loadFromFile("ASSETS//IMAGES//enemy2_up.png"))
 	{
 		std::cout << "problem loading player up image file";
 	}
-	if (!downTexture.loadFromFile("ASSETS//IMAGES//enemy1_down.png"))
+	if (!downTexture.loadFromFile("ASSETS//IMAGES//enemy2_down.png"))
 	{
 		std::cout << "problem loading player image down file";
 	}
-	if (!leftTexture.loadFromFile("ASSETS//IMAGES//enemy1_left.png"))
+	if (!leftTexture.loadFromFile("ASSETS//IMAGES//enemy2_left.png"))
 	{
 		std::cout << "problem loading player image left file";
 	}
-	if (!rightTexture.loadFromFile("ASSETS//IMAGES//enemy1_right.png"))
+	if (!rightTexture.loadFromFile("ASSETS//IMAGES//enemy2_right.png"))
 	{
 		std::cout << "problem loading player image right file";
 	}
@@ -42,28 +43,28 @@ void Enemy::loadImage()
 	sprite.setTexture(rightTexture);
 }
 
-sf::Sprite Enemy::getBody()
+sf::Sprite EnemyGuard::getBody()
 {
-	return sprite;
+	return sprite; 
 }
 
-void Enemy::setPosition()
+void EnemyGuard::setPosition()
 {
-	sprite.setPosition(200, 400);
+	sprite.setPosition(500, 400);
 }
 
-void Enemy::setPosition(int xPos, int yPos)
+void EnemyGuard::setPosition(int xPos, int yPos)
 {
 	initialPosX = xPos;
-	initialPosY = yPos; 
+	initialPosY = yPos;
 	sprite.setPosition(xPos, yPos);
 }
 
-void Enemy::moveEnemies()
+void EnemyGuard::moveEnemyGuard()
 {
 	sf::Vector2f pos(sprite.getPosition());
 
-	int maxDistance = 100; 
+	int maxDistance = 100;
 
 	if (pos.x <= initialPosX - maxDistance || pos.x >= initialPosX + maxDistance)
 	{
@@ -90,7 +91,6 @@ void Enemy::moveEnemies()
 		pos.y += 1;
 	}
 	sprite.setPosition(pos);
-	
-}
 
+}
 

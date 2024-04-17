@@ -47,6 +47,7 @@ Game::Game() : window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<
 // Default constructor
 {
 	initializeArray();
+	initializeArray2();
 }
 
 void Game::loadContent()
@@ -111,8 +112,16 @@ void Game::run()
 
 void Game::initializeArray()
 {
-	enemies[0].setPosition(100, 100);
-	enemies[1].setPosition(100, 200);
+	enemies[0].setPosition(100, 300);
+	enemies[1].setPosition(100, 400);
+}
+
+void Game::initializeArray2()
+{
+	enemyGuard[0].setPosition(500, 200);
+	enemyGuard[1].setPosition(500, 350);
+	enemyGuard[2].setPosition(500, 500);
+	enemyGuard[3].setPosition(500, 650);
 }
 
 void Game::update()
@@ -140,6 +149,10 @@ void Game::update()
 	{
 		enemies[index].moveEnemies(); // call the function to move the enemy objects
 	}
+	for (int index = 0; index < MAX_GUARDS; index++)
+	{
+		enemyGuard[index].moveEnemyGuard(); // calls the function to move the enemy guard objects
+	}
 	
 }
 
@@ -156,8 +169,12 @@ void Game::draw()
 
 	for (int index = 0; index < MAX_ENEMIES; index++)
 	{
-		window.draw(enemies[index].getBody()); // this draws the enemy object
+		window.draw(enemies[index].getBody()); // this draws the enemy protector object
 	}
 
+	for (int index = 0; index < MAX_GUARDS; index++)
+	{
+		window.draw(enemyGuard[index].getBody()); // this draws the enemy guard object
+	}
 	window.display();
 }
