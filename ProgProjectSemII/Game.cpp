@@ -34,6 +34,7 @@
 #include "Game.h"   // include Game header file
 
 
+
 int main()
 {
 	Game aGame;
@@ -160,6 +161,9 @@ void Game::update()
 	{
 		enemyGuard[index].moveEnemyGuard(); // calls the function to move the enemy guard objects
 	}
+
+
+
 	
 }
 
@@ -175,6 +179,7 @@ void Game::draw()
 	window.draw(backgroundSprite);
 
 	window.draw(myPlayer.getBody()); // this draws the player object 
+	window.draw(enemyBullet.getBody()); // this draws the bullet object
 
 	for (int index = 0; index < MAX_ENEMIES; index++)
 	{
@@ -185,6 +190,9 @@ void Game::draw()
 	{
 		window.draw(enemyGuard[index].getBody()); // this draws the enemy guard object
 	}
+
+	
+	
 	window.display();
 }
 

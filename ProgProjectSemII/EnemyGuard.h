@@ -1,8 +1,10 @@
 // Player class declaration
 #pragma once
 
-#include "SFML/Graphics.hpp"
 #include "Globals.h"
+#include "Bullet.h"
+#include "SFML/Graphics.hpp"
+
 #include <iostream>
 
 class EnemyGuard
@@ -23,6 +25,8 @@ class EnemyGuard
 
 	int initialPosX;
 	int initialPosY; 
+
+
 
 public: 
 	EnemyGuard(); // constructor
