@@ -12,8 +12,8 @@ Player::Player() // default constructor
 	imageWidth = 64;
 	imageHeight = 64;
 
-	int xPos = 1400;
-	int yPos = 380;
+	int xPos = 700;
+	int yPos = 280;
 
 	speed = 4; 
 

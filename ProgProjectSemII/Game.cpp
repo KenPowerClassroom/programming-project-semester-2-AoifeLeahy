@@ -53,6 +53,7 @@ Game::Game() : window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<
 void Game::loadContent()
 // Load the font file & setup the message string
 {
+
 	if (!m_font.loadFromFile("ASSETS/FONTS/BebasNeue.otf"))
 	{
 		std::cout << "error with font file file";
@@ -63,6 +64,12 @@ void Game::loadContent()
 	m_message.setCharacterSize(24); // set the text size
 	m_message.setFillColor(sf::Color::White); // set the text colour
 	m_message.setPosition(10, 10);  // its position on the screen
+	
+	if (!backgroundTexture.loadFromFile("ASSETS\\IMAGES\\floor.png"))
+	{
+		std::cout << "problem loading the background" << std::endl;
+	}
+	backgroundSprite.setTexture(backgroundTexture); // sets texture for the background
 
 }
 
@@ -112,16 +119,16 @@ void Game::run()
 
 void Game::initializeArray()
 {
-	enemies[0].setPosition(100, 300);
-	enemies[1].setPosition(100, 400);
+	enemies[0].setPosition(100, 200);
+	enemies[1].setPosition(100, 300);
 }
 
 void Game::initializeArray2()
 {
-	enemyGuard[0].setPosition(500, 100);
-	enemyGuard[1].setPosition(500, 250);
-	enemyGuard[2].setPosition(500, 400);
-	enemyGuard[3].setPosition(500, 550);
+	enemyGuard[0].setPosition(300, 120);
+	enemyGuard[1].setPosition(300, 220);
+	enemyGuard[2].setPosition(300, 320);
+	enemyGuard[3].setPosition(300, 420);
 }
 
 void Game::update()
@@ -165,6 +172,8 @@ void Game::draw()
 	m_message.setString("Game Play");
 	window.draw(m_message);  // write message to the screen
 
+	window.draw(backgroundSprite);
+
 	window.draw(myPlayer.getBody()); // this draws the player object 
 
 	for (int index = 0; index < MAX_ENEMIES; index++)
@@ -178,3 +187,4 @@ void Game::draw()
 	}
 	window.display();
 }
+

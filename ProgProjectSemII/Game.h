@@ -23,6 +23,10 @@ class Game
 	static const int MAX_GUARDS = 4; 
 	EnemyGuard enemyGuard[MAX_GUARDS]; // enemy array of 4 that are guards and shoot
 
+
+	sf::Texture backgroundTexture; // texture for the background
+	sf::Sprite backgroundSprite; // sprite for the background
+
 	sf::RenderWindow window;
 
 public:
@@ -39,4 +43,6 @@ public:	  // declaration of member functions
 private:
 	void update();
 	void draw();
+
+	
 };

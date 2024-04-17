@@ -11,7 +11,7 @@ Enemy::Enemy()
 	imageWidth = 64;
 	imageHeight = 64;
 
-	speed = 3;
+	speed = 2;
 	direction = NORTH;
 
 	initialPosX = 200;
@@ -63,7 +63,7 @@ void Enemy::moveEnemies()
 {
 	sf::Vector2f pos(sprite.getPosition());
 
-	int maxDistance = 100; 
+	int maxDistance = 30; 
 
 	if (pos.x <= initialPosX - maxDistance || pos.x >= initialPosX + maxDistance)
 	{

@@ -64,7 +64,7 @@ void EnemyGuard::moveEnemyGuard()
 {
 	sf::Vector2f pos(sprite.getPosition());
 
-	int maxDistance = 100;
+	int maxDistance = 50;
 
 	if (pos.x <= initialPosX - maxDistance || pos.x >= initialPosX + maxDistance)
 	{
