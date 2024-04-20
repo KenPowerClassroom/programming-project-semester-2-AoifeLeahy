@@ -11,6 +11,7 @@
 #include "Enemy.h"   // include Enemy header file
 #include "EnemyGuard.h" // include EnemyGuard header file 
 #include "Bullet.h" // include bullet header file
+#include "Rock.h" // include rock header file
 
 
 class Game
@@ -26,6 +27,8 @@ class Game
 	EnemyGuard enemyGuard[MAX_GUARDS]; // enemy array of 4 that are guards and shoot
 
 	Bullet enemyBullet; // bullet object
+
+	Rock rock; // rock object 
 
 	sf::Texture backgroundTexture; // texture for the background
 	sf::Sprite backgroundSprite; // sprite for the background
@@ -46,6 +49,7 @@ public:	  // declaration of member functions
 private:
 	void update();
 	void draw();
+	
 
 	
 };

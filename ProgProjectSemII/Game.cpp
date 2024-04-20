@@ -72,6 +72,7 @@ void Game::loadContent()
 	}
 	backgroundSprite.setTexture(backgroundTexture); // sets texture for the background
 
+
 }
 
 
@@ -118,6 +119,7 @@ void Game::run()
 
 }
 
+
 void Game::initializeArray()
 {
 	enemies[0].setPosition(100, 200);
@@ -136,6 +138,13 @@ void Game::update()
 // This function takes the keyboard input and updates the game world
 {
 	// get keyboard input
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		rock.fired(myPlayer);
+	}
+	
+	rock.move();
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		myPlayer.moveLeft();
@@ -162,8 +171,6 @@ void Game::update()
 		enemyGuard[index].moveEnemyGuard(); // calls the function to move the enemy guard objects
 	}
 
-
-
 	
 }
 
@@ -179,7 +186,14 @@ void Game::draw()
 	window.draw(backgroundSprite);
 
 	window.draw(myPlayer.getBody()); // this draws the player object 
-	window.draw(enemyBullet.getBody()); // this draws the bullet object
+	//window.draw(enemyBullet.getBody()); // this draws the bullet object
+
+	if (rock.isActive)
+	{
+		window.draw(rock.getBody());
+	}
+	
+	
 
 	for (int index = 0; index < MAX_ENEMIES; index++)
 	{
@@ -191,7 +205,6 @@ void Game::draw()
 		window.draw(enemyGuard[index].getBody()); // this draws the enemy guard object
 	}
 
-	
 	
 	window.display();
 }

@@ -11,12 +11,12 @@ Bullet::Bullet()
 
 void Bullet::loadImage()
 {
-	if (!bulletTexture.loadFromFile("ASSETS\\IMAGES\\fireball_right.png"))
+	/*if (!bulletTexture.loadFromFile("ASSETS\\IMAGES\\fireball_right.png"))
 	{
 		std::cout << "problem loading bullet" << std::endl;
 	}
 
-	sprite.setTexture(bulletTexture);
+	sprite.setTexture(bulletTexture);*/
 }
 
 sf::Sprite Bullet::getBody()

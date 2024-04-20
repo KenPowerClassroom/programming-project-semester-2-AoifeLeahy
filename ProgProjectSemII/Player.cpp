@@ -16,6 +16,7 @@ Player::Player() // default constructor
 	int yPos = 280;
 
 	speed = 4; 
+	direction = WEST;
 
 	setPosition(xPos, yPos); // sets position of the player
 }
@@ -52,12 +53,18 @@ void Player::setPosition()
 	sprite.setPosition(200, 200);
 }
 
+sf::Vector2f Player::getPosition()
+{
+	sf::Vector2f playerPos = sprite.getPosition();
+	return playerPos;
+}
+
+
+
 void Player::setPosition(int xPos, int yPos)
 {
 	sprite.setPosition(xPos, yPos);
 }
-
-
 
 void Player::moveDown()
 {
@@ -74,6 +81,7 @@ void Player::moveDown()
 	
 	sprite.setPosition(pos);
 	sprite.setTexture(downTexture);
+	direction = SOUTH;
 }
 
 void Player::moveUp()
@@ -91,7 +99,9 @@ void Player::moveUp()
 
 	sprite.setPosition(pos);
 	sprite.setTexture(upTexture); 
+	direction = NORTH;
 }
+
 
 void Player::moveRight()
 {
@@ -107,6 +117,7 @@ void Player::moveRight()
 
 	sprite.setPosition(pos);
 	sprite.setTexture(rightTexture);
+	direction = EAST;
 }
 
 void Player::moveLeft()
@@ -122,4 +133,14 @@ void Player::moveLeft()
 
 	sprite.setPosition(pos);
 	sprite.setTexture(leftTexture);
+	direction = WEST;
+}
+
+int Player::getDirection()
+{
+	return direction;
+}
+
+void Player::decreaseLives()
+{
 }
