@@ -63,6 +63,7 @@ void Rock::move()
 		pos.x -= speed;
 		sprite.setTexture(texture);
 	}
+	sprite.setPosition(pos);
 }
 
 

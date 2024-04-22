@@ -12,10 +12,10 @@ Enemy::Enemy()
 	imageHeight = 64;
 
 	speed = 2;
-	direction = NORTH;
+	//direction = EAST;
 
 	initialPosX = 200;
-	initialPosY = 400;
+	initialPosY = 100;
 
 	setPosition(initialPosX, initialPosY);
 }
@@ -49,7 +49,7 @@ sf::Sprite Enemy::getBody()
 
 void Enemy::setPosition()
 {
-	sprite.setPosition(200, 400);
+	sprite.setPosition(200, 100);
 }
 
 void Enemy::setPosition(int xPos, int yPos)
@@ -63,9 +63,9 @@ void Enemy::moveEnemies()
 {
 	sf::Vector2f pos(sprite.getPosition());
 
-	int maxDistance = 30; 
+	//int maxDistance = 30; 
 
-	if (pos.x <= initialPosX - maxDistance || pos.x >= initialPosX + maxDistance)
+	/*if (pos.x <= initialPosX - maxDistance || pos.x >= initialPosX + maxDistance)
 	{
 		movingRight = !movingRight;
 	}
@@ -88,8 +88,35 @@ void Enemy::moveEnemies()
 	else
 	{
 		pos.y += 1;
+	}*/
+		// x < 200
+	if (pos.x >= 50 && pos.y == 150 && pos.x < 200)
+	{
+		pos.x += speed;
+		direction = EAST;
+		sprite.setTexture(rightTexture);
 	}
-	sprite.setPosition(pos);
+	else if (pos.y < 300 && pos.y >= 150 && pos.x == 200)
+	{
+		direction = SOUTH;
+		sprite.setTexture(downTexture);
+		pos.y += speed;
+	}
+	else if (pos.y == 300 && pos.x < 201 && pos.x >= 51)
+	{
+		direction = WEST;
+		sprite.setTexture(leftTexture);
+		pos.x -= speed;
+	}
+	else if (pos.x == 50 && pos.y <= 300 && pos.y > 150)
+	{
+		direction = NORTH;
+		sprite.setTexture(upTexture);
+		pos.y -= speed;
+	}
+	
+
+	sprite.setPosition(pos.x ,pos.y);
 	
 }
 

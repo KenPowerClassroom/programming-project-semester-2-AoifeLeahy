@@ -122,8 +122,8 @@ void Game::run()
 
 void Game::initializeArray()
 {
-	enemies[0].setPosition(100, 200);
-	enemies[1].setPosition(100, 300);
+	enemies[0].setPosition(50, 150);
+	enemies[1].setPosition(100, 150);
 }
 
 void Game::initializeArray2()
@@ -193,8 +193,6 @@ void Game::draw()
 		window.draw(rock.getBody());
 	}
 	
-	
-
 	for (int index = 0; index < MAX_ENEMIES; index++)
 	{
 		window.draw(enemies[index].getBody()); // this draws the enemy protector object
