@@ -60,11 +60,7 @@ void Game::loadContent()
 		std::cout << "error with font file file";
 	}
 
-	// set up the message string 
-	m_message.setFont(m_font);  // set the font for the text
-	m_message.setCharacterSize(24); // set the text size
-	m_message.setFillColor(sf::Color::White); // set the text colour
-	m_message.setPosition(10, 10);  // its position on the screen
+	
 	
 	if (!backgroundTexture.loadFromFile("ASSETS\\IMAGES\\floor.png"))
 	{
@@ -123,27 +119,29 @@ void Game::run()
 void Game::initializeArray()
 {
 	enemies[0].setPosition(50, 150);
-	enemies[1].setPosition(100, 150);
+	enemies[1].setPosition(200, 150);
 }
 
 void Game::initializeArray2()
 {
-	enemyGuard[0].setPosition(300, 120);
-	enemyGuard[1].setPosition(300, 220);
-	enemyGuard[2].setPosition(300, 320);
-	enemyGuard[3].setPosition(300, 420);
+	enemyGuard[0].setPosition(320, 120);
+	enemyGuard[1].setPosition(320, 220);
+	enemyGuard[2].setPosition(320, 320);
+	enemyGuard[3].setPosition(320, 420);
 }
 
 void Game::update()
 // This function takes the keyboard input and updates the game world
 {
 	// get keyboard input
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (myPlayer.getAlive())
 	{
-		rock.fired(myPlayer);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			rock.fired(myPlayer);
+		}
+		rock.move();
 	}
-	
-	rock.move();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
@@ -170,8 +168,8 @@ void Game::update()
 	{
 		enemyGuard[index].moveEnemyGuard(); // calls the function to move the enemy guard objects
 	}
-
-	
+	collisionDetectionEnemy();
+	collisionDetectionPlayer();
 }
 
 void Game::draw()
@@ -180,12 +178,12 @@ void Game::draw()
 	// Clear the screen and draw your game sprites
 	window.clear();
 
-	m_message.setString("Game Play");
-	window.draw(m_message);  // write message to the screen
-
 	window.draw(backgroundSprite);
 
-	window.draw(myPlayer.getBody()); // this draws the player object 
+	if (myPlayer.getAlive())
+	{
+		window.draw(myPlayer.getBody()); // this draws the player object 
+	}
 	//window.draw(enemyBullet.getBody()); // this draws the bullet object
 
 	if (rock.isActive)
@@ -195,15 +193,121 @@ void Game::draw()
 	
 	for (int index = 0; index < MAX_ENEMIES; index++)
 	{
-		window.draw(enemies[index].getBody()); // this draws the enemy protector object
+		if (enemies[index].getAlive())
+		{
+			window.draw(enemies[index].getBody()); // this draws the enemy protector object
+		}
 	}
 
 	for (int index = 0; index < MAX_GUARDS; index++)
 	{
-		window.draw(enemyGuard[index].getBody()); // this draws the enemy guard object
+		if (enemyGuard[index].getAlive())
+		{
+			window.draw(enemyGuard[index].getBody()); // this draws the enemy guard object
+		}
 	}
 
 	
 	window.display();
+}
+
+void Game::collisionDetectionEnemy()
+{
+	sf::FloatRect enemyGuardRec;
+	sf::FloatRect rockRec;
+	sf::FloatRect enemyProtectorRec;
+
+	if (rock.isActive)
+	{
+		rockRec = rock.getBody().getGlobalBounds();
+
+		for (int count = 0; count < MAX_GUARDS; count++)
+		{
+			enemyGuardRec = enemyGuard[count].getBody().getGlobalBounds();
+			if (enemyGuard[count].getAlive())
+			{
+				if (rockRec.intersects(enemyGuardRec))
+				{
+					enemyGuard[count].decreaseLives();
+					rock.reset(myPlayer);
+					score = score + 2;
+					scoreText.setString("Score: " + std::to_string(score));
+				}
+			}
+		}
+		for (int count = 0; count < MAX_ENEMIES; count++)
+		{
+			enemyProtectorRec = enemies[count].getBody().getGlobalBounds();
+			if (enemies[count].getAlive())
+			{
+				if (rockRec.intersects(enemyProtectorRec))
+				{
+					enemies[count].decreaseLives();
+					rock.reset(myPlayer);
+					score = score + 2;
+					scoreText.setString("Score: " + std::to_string(score));
+				}
+			}
+		}
+	}
+}
+
+void Game::collisionDetectionPlayer()
+{
+	sf::FloatRect enemyGuardRec;
+	sf::FloatRect playerRec;
+	sf::FloatRect enemyProtectorRec;
+	sf::FloatRect rockRec;
+
+	playerRec = myPlayer.getBody().getGlobalBounds();
+
+	for (int count = 0; count < MAX_GUARDS; count++)
+	{
+		enemyGuardRec = enemyGuard[count].getBody().getGlobalBounds();
+		if (enemyGuard[count].getAlive())
+		{
+			if (playerRec.intersects(enemyGuardRec))
+			{
+				myPlayer.decreaseLives();
+				health--;
+			}
+		}
+	}
+	for (int count = 0; count < MAX_ENEMIES; count++)
+	{
+		enemyProtectorRec = enemies[count].getBody().getGlobalBounds();
+		if (enemies[count].getAlive())
+		{
+			if (playerRec.intersects(enemyProtectorRec))
+			{
+				myPlayer.decreaseLives();
+				health--;
+			}
+			
+		}
+	}
+}
+
+
+
+void Game::restartGame()
+{
+	/*myPlayer.reset();
+	for (int count = 0; count < MAX_ENEMIES; count++)
+	{
+		enemies[count].reset();
+	}
+	for (int count = 0; count < MAX_GUARDS; count++)
+	{
+		enemyGuard[count].reset();
+	}
+	int posX = (SCREEN_WIDTH / 2) - (64 / 2);
+	int posY = 61;
+	initializeArray();
+	initializeArray2();
+	health = 5;
+	score = 0; */
+	
+
 }
 

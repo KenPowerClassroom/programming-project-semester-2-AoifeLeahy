@@ -12,7 +12,7 @@ Enemy::Enemy()
 	imageHeight = 64;
 
 	speed = 2;
-	//direction = EAST;
+	health = 5;
 
 	initialPosX = 200;
 	initialPosY = 100;
@@ -63,33 +63,6 @@ void Enemy::moveEnemies()
 {
 	sf::Vector2f pos(sprite.getPosition());
 
-	//int maxDistance = 30; 
-
-	/*if (pos.x <= initialPosX - maxDistance || pos.x >= initialPosX + maxDistance)
-	{
-		movingRight = !movingRight;
-	}
-	if (movingRight)
-	{
-		pos.x += speed;
-	}
-	else
-	{
-		pos.x -= speed;
-	}
-	if (pos.y <= initialPosY - maxDistance || pos.y >= initialPosY + maxDistance)
-	{
-		movingUp = !movingUp;
-	}
-	if (movingUp)
-	{
-		pos.y -= 1;
-	}
-	else
-	{
-		pos.y += 1;
-	}*/
-		// x < 200
 	if (pos.x >= 50 && pos.y == 150 && pos.x < 200)
 	{
 		pos.x += speed;
@@ -119,5 +92,31 @@ void Enemy::moveEnemies()
 	sprite.setPosition(pos.x ,pos.y);
 	
 }
+void Enemy::setAlive(int newAlive)
+{
+	alive = newAlive;
+}
+
+int Enemy::getAlive()
+{
+	return alive;
+}
+
+void Enemy::decreaseLives()
+{
+	health--;
+	if (health <= 0)
+	{
+		alive = false;
+	}
+}
+
+void Enemy::reset()
+{
+	alive = true;
+	health = 5;
+	sprite.setPosition(200, 100);
+}
+
 
 

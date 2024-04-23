@@ -10,7 +10,7 @@ Rock::Rock() // default constructor
 {
 	loadImage();
 	
-	speed = 7;
+	speed = 10;
 	direction = WEST;
 
 }
@@ -27,6 +27,11 @@ void Rock::loadImage()
 sf::Sprite Rock::getBody()
 {
 	return sprite;
+}
+
+void Rock::setPosition(sf::Vector2f& position)
+{
+	sprite.setPosition(position);
 }
 
 void Rock::fired(Player myPlayer)
@@ -65,6 +70,16 @@ void Rock::move()
 	}
 	sprite.setPosition(pos);
 }
+
+void Rock::reset(Player myPlayer)
+{
+	isFired = false;
+	direction = myPlayer.getDirection();
+	sf::Vector2f playerPos = myPlayer.getPosition();
+	sprite.setPosition(playerPos);
+	isActive = false;
+}
+
 
 
 

@@ -35,9 +35,32 @@ class Game
 
 	sf::RenderWindow window;
 
+	int gameMode; // different modes or screens in the game
+
 public:
 	sf::Font m_font;  // font for writing text
-	sf::Text m_message;  // text to write on the screen
+	sf::Text m_title;  // text to write on the screen
+	sf::Text m_instructions; // the instructions that are written on the screen
+	sf::Text m_start;
+	sf::Text m_startMessage; // message to start the game
+
+
+	//the gameplay messages that shows on the screen
+	sf::Text healthText;
+	sf::Text scoreText;
+
+
+	// messages at the end of the game
+	sf::Text escaped; 
+	sf::Text died;
+	sf::Text livesLeft;
+	sf::Text scoreEnd;
+	sf::Text playAgain;
+	sf::Text playAgainMessage;
+	
+	int score = 0; 
+	int health = 3;
+
 
 public:	  // declaration of member functions	
 	Game(); // default constructor
@@ -45,11 +68,14 @@ public:	  // declaration of member functions
 	void run();
 	void initializeArray(); // initializes the array for the first type of enemy (Protectors)
 	void initializeArray2();  // initializes the array for the second type of enemy (Guards)
+	
+	void collisionDetectionEnemy();
+	void collisionDetectionPlayer();
 
-private:
+	void restartGame();
+
 	void update();
 	void draw();
 	
-
 	
 };

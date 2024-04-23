@@ -3,8 +3,6 @@
 
 #include "SFML/Graphics.hpp"
 #include "Globals.h"
-
-
 #include <iostream>
 
 class Player
@@ -17,12 +15,12 @@ class Player
 
 	int imageWidth; // the width of the player 
 	int imageHeight; //  the height of the player
-	//int score; // player score
-	//int noOfLives; // number of lives the player has. When reaches 0, player dies.
+	int score; // player score
+	int health; // number of lives the player has. When reaches 0, player dies.
 	int direction; // the direction in which the player is facing
 	int speed; // player speed
 
-	
+	bool alive; // is the player alive or dead in the game
 	// private data members
 
 public:
@@ -48,9 +46,15 @@ public:
 	void moveLeft(); // player moves left
 	void moveDown(); // player moves down
 	void moveUp(); // player moves up.
+
+	void setAlive(int newAlive);
+	int getAlive();
+
 	void displayPlayerStats(); // display the players score and lives
 	void increaseScore(); // the player's score increases
 	void decreaseLives(); // the player's lives decreases
+
+	void reset();
 
 
 };

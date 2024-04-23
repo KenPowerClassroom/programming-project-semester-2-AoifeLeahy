@@ -18,7 +18,8 @@ class Enemy
 
 	int direction; // direction of enemy
 	int speed; // enemy speed
-	int timesHit; // number of times the enemy is hit
+	int health; // number of times the enemy is hit
+	bool alive;
 	 
 	int imageWidth; // the width of the pixels of the enemy image
 	int imageHeight; // the height of the pixels of the enemy image
@@ -38,13 +39,15 @@ public:
 
 
 	void draw(); // draws the enemy
-	void dies(); // used if the enemy dies
-	void moveEnemies(); // used to move the enemy up while staying in the boundary of the screen
-	void hit(); // if the enemy is hit by the rock
 
-	bool movingRight; 
-	bool movingUp;
+	void moveEnemies(); // used to move the enemy up while staying in the boundary of the screen
 	
+
+	void setAlive(int newAlive);
+	int getAlive(); // this makes it return if alive or not
+	void decreaseLives();
+	
+	void reset();
 
 };
 	

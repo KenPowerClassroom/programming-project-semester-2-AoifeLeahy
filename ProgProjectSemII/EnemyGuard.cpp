@@ -11,8 +11,9 @@ EnemyGuard::EnemyGuard()
 	imageWidth = 64;
 	imageHeight = 64;
 
-	speed = 3;
+	speed = 4;
 	direction = NORTH;
+	health = 5;
 
 	initialPosX = 400;
 	initialPosY = 600;
@@ -60,6 +61,17 @@ void EnemyGuard::setPosition(int xPos, int yPos)
 	sprite.setPosition(xPos, yPos);
 }
 
+sf::Vector2f EnemyGuard::getPosition()
+{
+	sf::Vector2f enemyPos = sprite.getPosition();
+	return enemyPos;
+}
+
+int EnemyGuard::getDirection()
+{
+	return direction;
+}
+
 void EnemyGuard::moveEnemyGuard()
 {
 	sf::Vector2f pos(sprite.getPosition());
@@ -94,4 +106,27 @@ void EnemyGuard::moveEnemyGuard()
 
 }
 
+void EnemyGuard::setAlive(int newAlive)
+{
+	alive = newAlive;
+}
 
+int EnemyGuard::getAlive()
+{
+	return alive;
+}
+
+void EnemyGuard::decreaseLives()
+{
+	health--;
+	if (health <= 0)
+	{
+		alive = false;
+	}
+}
+
+void EnemyGuard::reset()
+{
+	alive = true;
+	health = 5;
+}

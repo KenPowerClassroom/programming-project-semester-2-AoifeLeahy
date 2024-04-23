@@ -17,6 +17,7 @@ Player::Player() // default constructor
 
 	speed = 4; 
 	direction = WEST;
+	health = 5;
 
 	setPosition(xPos, yPos); // sets position of the player
 }
@@ -50,7 +51,7 @@ sf::Sprite Player::getBody()
 
 void Player::setPosition()
 {
-	sprite.setPosition(200, 200);
+	sprite.setPosition(700, 280);
 }
 
 sf::Vector2f Player::getPosition()
@@ -58,8 +59,6 @@ sf::Vector2f Player::getPosition()
 	sf::Vector2f playerPos = sprite.getPosition();
 	return playerPos;
 }
-
-
 
 void Player::setPosition(int xPos, int yPos)
 {
@@ -141,6 +140,30 @@ int Player::getDirection()
 	return direction;
 }
 
+void Player::setAlive(int newAlive)
+{
+	alive = newAlive;
+}
+
+int Player::getAlive()
+{
+	return alive;
+}
+
 void Player::decreaseLives()
 {
+	health--;
+	if (health <= 0)
+	{
+		alive = false;
+	}
+	sprite.setPosition(700, 280);
+}
+
+void Player::reset()
+{
+	alive = true;
+	health = 5;
+	direction = WEST;
+	sprite.setPosition(700, 280);
 }
