@@ -49,28 +49,93 @@ Game::Game() : window(sf::VideoMode(static_cast<int>(SCREEN_WIDTH), static_cast<
 {
 	initializeArray();
 	initializeArray2();
+	gameMode = main_screen;
 }
 
 void Game::loadContent()
 // Load the font file & setup the message string
 {
-
 	if (!m_font.loadFromFile("ASSETS/FONTS/BebasNeue.otf"))
 	{
 		std::cout << "error with font file file";
 	}
 
-	
-	
 	if (!backgroundTexture.loadFromFile("ASSETS\\IMAGES\\floor.png"))
 	{
 		std::cout << "problem loading the background" << std::endl;
 	}
 	backgroundSprite.setTexture(backgroundTexture); // sets texture for the background
 
+	m_title.setPosition(200,30);
+	m_title.setFont(m_font);
+	m_title.setFillColor(sf::Color::White);
+	m_title.setOutlineColor(sf::Color::Blue);
+	m_title.setOutlineThickness(5);
+	m_title.setCharacterSize(50);
 
+	m_instructions.setPosition(200, 120);
+	m_instructions.setFont(m_font);
+	m_instructions.setFillColor(sf::Color::White);
+	m_instructions.setCharacterSize(20);
+
+	m_start.setPosition(200, 400);
+	m_start.setFont(m_font);
+	m_start.setFillColor(sf::Color::White);
+	m_start.setOutlineColor(sf::Color::Red);
+	m_start.setOutlineThickness(5);
+	m_start.setCharacterSize(100);
+
+	m_startMessage.setPosition(230, 530);
+	m_startMessage.setFont(m_font);
+	m_startMessage.setFillColor(sf::Color::White);
+	m_startMessage.setCharacterSize(15);
+
+	escaped.setPosition(260, 100);
+	escaped.setFont(m_font);
+	escaped.setFillColor(sf::Color::White);
+	escaped.setOutlineColor(sf::Color::Blue);
+	escaped.setOutlineThickness(5);
+	escaped.setCharacterSize(65);
+
+	died.setPosition(220, 100);
+	died.setFont(m_font);
+	died.setFillColor(sf::Color::White);
+	died.setOutlineColor(sf::Color::Blue);
+	died.setOutlineThickness(5);
+	died.setCharacterSize(80);
+
+	scoreEnd.setPosition(300, 300);
+	scoreEnd.setFont(m_font);
+	scoreEnd.setFillColor(sf::Color::White);
+	scoreEnd.setCharacterSize(40);
+
+	livesLeft.setPosition(300, 220);
+	livesLeft.setFont(m_font);
+	livesLeft.setFillColor(sf::Color::White);
+	livesLeft.setCharacterSize(35);
+
+	playAgain.setPosition(260, 400);
+	playAgain.setFont(m_font);
+	playAgain.setFillColor(sf::Color::White);
+	playAgain.setOutlineColor(sf::Color::Red);
+	playAgain.setOutlineThickness(5);
+	playAgain.setCharacterSize(50);
+
+	playAgainMessage.setPosition(230, 560);
+	playAgainMessage.setFont(m_font);
+	playAgainMessage.setFillColor(sf::Color::White);
+	playAgainMessage.setCharacterSize(15);
+
+	scoreText.setPosition(650, 570);
+	scoreText.setFont(m_font);
+	scoreText.setFillColor(sf::Color::White);
+	scoreText.setCharacterSize(20);
+
+	healthText.setPosition(40, 570);
+	healthText.setFont(m_font);
+	healthText.setFillColor(sf::Color::White);
+	healthText.setCharacterSize(20);
 }
-
 
 void Game::run()
 // This function contains the main game loop which controls the game. 
@@ -134,42 +199,83 @@ void Game::update()
 // This function takes the keyboard input and updates the game world
 {
 	// get keyboard input
-	if (myPlayer.getAlive())
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		{
-			rock.fired(myPlayer);
-		}
-		rock.move();
-	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	if (gameMode == main_screen)
 	{
-		myPlayer.moveLeft();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+		{
+			gameMode = game_Play;
+		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	else if (gameMode == game_Play)
 	{
-		myPlayer.moveRight(); 
+		collisionDetectionEnemy();
+		collisionDetectionPlayer();
+
+		if (myPlayer.getAlive())
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				rock.fired(myPlayer);
+			}
+			rock.move();
+		}
+		if (myPlayer.getAlive() == false)
+		{
+			gameMode = game_over;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			myPlayer.moveLeft();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			myPlayer.moveRight();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			myPlayer.moveDown();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			myPlayer.moveUp();
+		}
+		// update any game variables here ...
+		for (int index = 0; index < MAX_ENEMIES; index++)
+		{
+			if (enemies[index].getAlive())
+			{
+				enemies[index].moveEnemies(); // call the function to move the enemy objects
+			}
+			else if (enemies[index].getAlive() == false)
+			{
+				gameMode = game_win;
+			}
+			
+		}
+		for (int index = 0; index < MAX_GUARDS; index++)
+		{
+			enemyGuard[index].moveEnemyGuard(); // calls the function to move the enemy guard objects
+		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	else if (gameMode == game_win)
 	{
-		myPlayer.moveDown();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
+		{
+			gameMode = game_Play;
+			restartGame();
+		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	else if (gameMode == game_over)
 	{
-		myPlayer.moveUp();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
+		{
+			gameMode = game_Play;
+			restartGame();
+		}
 	}
-	// update any game variables here ...
-	for (int index = 0; index < MAX_ENEMIES; index++)
-	{
-		enemies[index].moveEnemies(); // call the function to move the enemy objects
-	}
-	for (int index = 0; index < MAX_GUARDS; index++)
-	{
-		enemyGuard[index].moveEnemyGuard(); // calls the function to move the enemy guard objects
-	}
-	collisionDetectionEnemy();
-	collisionDetectionPlayer();
+	
 }
 
 void Game::draw()
@@ -178,34 +284,77 @@ void Game::draw()
 	// Clear the screen and draw your game sprites
 	window.clear();
 
-	window.draw(backgroundSprite);
-
-	if (myPlayer.getAlive())
+	
+	if (gameMode == main_screen)
 	{
-		window.draw(myPlayer.getBody()); // this draws the player object 
+		m_title.setString("INSTRUCTIONS: ");
+		m_instructions.setString("1. Avoid the guards! \n\n2. Avoid security! \n\n3. Avoid bullets! \n\n4. Secure the key to escape. \n\n5.Use <ARROW KEYS> to move player. \n\n6.Use <SPACE> to shoot.");
+		m_start.setString("START");
+		m_startMessage.setString("Press <ENTER> to start");
+		window.draw(m_title);
+		window.draw(m_instructions);
+		window.draw(m_start);
+		window.draw(m_startMessage);
 	}
-	//window.draw(enemyBullet.getBody()); // this draws the bullet object
-
-	if (rock.isActive)
+	else if (gameMode == game_Play)
 	{
-		window.draw(rock.getBody());
+		window.draw(backgroundSprite);
+		scoreText.setString("Score: " + std::to_string(score));
+		healthText.setString("Lives: " + std::to_string(health));
+		window.draw(scoreText);
+		window.draw(healthText);
+
+		if (myPlayer.getAlive())
+		{
+			window.draw(myPlayer.getBody()); // this draws the player object 
+			if (rock.isActive)
+			{
+				window.draw(rock.getBody());
+			}
+	
+			for (int index = 0; index < MAX_ENEMIES; index++)
+			{
+				if (enemies[index].getAlive())
+				{
+					window.draw(enemies[index].getBody()); // this draws the enemy protector object
+				}
+			}
+
+			for (int index = 0; index < MAX_GUARDS; index++)
+			{
+				if (enemyGuard[index].getAlive())
+				{
+					window.draw(enemyGuard[index].getBody()); // this draws the enemy guard object
+				}
+			}
+		}
+	}
+	else if (gameMode == game_win)
+	{
+		escaped.setString("YOU WON!");
+		window.draw(escaped);
+		scoreEnd.setString("Score: " + std::to_string(score));
+		window.draw(scoreEnd);
+		livesLeft.setString("Lives left: " + std::to_string(health));
+		window.draw(livesLeft);
+		playAgain.setString("Play Again? ");
+		window.draw(playAgain);
+	}
+	else if (gameMode == game_over)
+	{
+		died.setString("GAME OVER");
+		window.draw(died);
+		scoreEnd.setString("Score: " + std::to_string(score));
+		window.draw(scoreEnd);
+		playAgain.setString("Play Again? ");
+		window.draw(playAgain);
+
 	}
 	
-	for (int index = 0; index < MAX_ENEMIES; index++)
-	{
-		if (enemies[index].getAlive())
-		{
-			window.draw(enemies[index].getBody()); // this draws the enemy protector object
-		}
-	}
 
-	for (int index = 0; index < MAX_GUARDS; index++)
-	{
-		if (enemyGuard[index].getAlive())
-		{
-			window.draw(enemyGuard[index].getBody()); // this draws the enemy guard object
-		}
-	}
+	//window.draw(enemyBullet.getBody()); // this draws the bullet object
+
+	
 
 	
 	window.display();
@@ -270,6 +419,7 @@ void Game::collisionDetectionPlayer()
 			{
 				myPlayer.decreaseLives();
 				health--;
+		
 			}
 		}
 	}
@@ -282,6 +432,7 @@ void Game::collisionDetectionPlayer()
 			{
 				myPlayer.decreaseLives();
 				health--;
+				
 			}
 			
 		}
@@ -292,7 +443,7 @@ void Game::collisionDetectionPlayer()
 
 void Game::restartGame()
 {
-	/*myPlayer.reset();
+	myPlayer.reset();
 	for (int count = 0; count < MAX_ENEMIES; count++)
 	{
 		enemies[count].reset();
@@ -301,12 +452,12 @@ void Game::restartGame()
 	{
 		enemyGuard[count].reset();
 	}
-	int posX = (SCREEN_WIDTH / 2) - (64 / 2);
-	int posY = 61;
+	//int posX = (SCREEN_WIDTH / 2) - (64 / 2);
+	//int posY = 61;
 	initializeArray();
 	initializeArray2();
 	health = 5;
-	score = 0; */
+	score = 0; 
 	
 
 }

@@ -59,7 +59,7 @@ public:
 	sf::Text playAgainMessage;
 	
 	int score = 0; 
-	int health = 3;
+	int health = 5;
 
 
 public:	  // declaration of member functions	

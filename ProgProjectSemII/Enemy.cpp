@@ -12,7 +12,7 @@ Enemy::Enemy()
 	imageHeight = 64;
 
 	speed = 2;
-	health = 5;
+	health = 3;
 
 	initialPosX = 200;
 	initialPosY = 100;
@@ -114,7 +114,7 @@ void Enemy::decreaseLives()
 void Enemy::reset()
 {
 	alive = true;
-	health = 5;
+	health = 3;
 	sprite.setPosition(200, 100);
 }
 

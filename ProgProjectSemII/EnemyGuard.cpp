@@ -13,7 +13,7 @@ EnemyGuard::EnemyGuard()
 
 	speed = 4;
 	direction = NORTH;
-	health = 5;
+	health = 3;
 
 	initialPosX = 400;
 	initialPosY = 600;
@@ -128,5 +128,5 @@ void EnemyGuard::decreaseLives()
 void EnemyGuard::reset()
 {
 	alive = true;
-	health = 5;
+	health = 3;
 }
