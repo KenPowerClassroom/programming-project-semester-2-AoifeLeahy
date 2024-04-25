@@ -66,6 +66,35 @@ void Game::loadContent()
 	}
 	backgroundSprite.setTexture(backgroundTexture); // sets texture for the background
 
+	if (!keyTexture.loadFromFile("ASSETS\\IMAGES\\key.png"))
+	{
+		std::cout << "problem loading key" << std::endl;
+	}
+	keySprite.setTexture(keyTexture);
+	keySprite.setPosition(130, 240);
+
+	if (!m_backgroundBuffer.loadFromFile("ASSETS\\AUDIO\\background music.wav"))
+	{
+		std::cout << "problem loading background music" << std::endl;
+	}
+	m_backgroundMusic.setBuffer(m_backgroundBuffer);
+	if (gameMode == main_screen)
+	{
+		m_backgroundMusic.play();
+		m_backgroundMusic.setLoop(true);
+	}
+	else if (gameMode == game_Play)
+	{
+		m_backgroundMusic.play();
+		m_backgroundMusic.setLoop(true);
+	}
+
+	if (!m_damageBuffer.loadFromFile("ASSETS\\AUDIO\\damage.wav"))
+	{
+		std::cout << "problem loading damage sound" << std::endl;
+	}
+	m_damageSound.setBuffer(m_damageBuffer);
+
 	m_title.setPosition(200,30);
 	m_title.setFont(m_font);
 	m_title.setFillColor(sf::Color::White);
@@ -185,14 +214,15 @@ void Game::initializeArray()
 {
 	enemies[0].setPosition(50, 150);
 	enemies[1].setPosition(200, 150);
+	enemies[2].setPosition(200, 300);
 }
 
 void Game::initializeArray2()
 {
-	enemyGuard[0].setPosition(320, 120);
-	enemyGuard[1].setPosition(320, 220);
-	enemyGuard[2].setPosition(320, 320);
-	enemyGuard[3].setPosition(320, 420);
+	enemyGuard[0].setPosition(330, 100);
+	enemyGuard[1].setPosition(330, 220);
+	enemyGuard[2].setPosition(330, 340);
+	enemyGuard[3].setPosition(330, 460);
 }
 
 void Game::update()
@@ -248,10 +278,6 @@ void Game::update()
 			{
 				enemies[index].moveEnemies(); // call the function to move the enemy objects
 			}
-			else if (enemies[index].getAlive() == false)
-			{
-				gameMode = game_win;
-			}
 			
 		}
 		for (int index = 0; index < MAX_GUARDS; index++)
@@ -303,6 +329,7 @@ void Game::draw()
 		healthText.setString("Lives: " + std::to_string(health));
 		window.draw(scoreText);
 		window.draw(healthText);
+		window.draw(keySprite);
 
 		if (myPlayer.getAlive())
 		{
@@ -381,6 +408,7 @@ void Game::collisionDetectionEnemy()
 					rock.reset(myPlayer);
 					score = score + 2;
 					scoreText.setString("Score: " + std::to_string(score));
+					m_damageSound.play();
 				}
 			}
 		}
@@ -395,6 +423,7 @@ void Game::collisionDetectionEnemy()
 					rock.reset(myPlayer);
 					score = score + 2;
 					scoreText.setString("Score: " + std::to_string(score));
+					m_damageSound.play();
 				}
 			}
 		}
@@ -407,8 +436,15 @@ void Game::collisionDetectionPlayer()
 	sf::FloatRect playerRec;
 	sf::FloatRect enemyProtectorRec;
 	sf::FloatRect rockRec;
+	sf::FloatRect keyRec;
 
 	playerRec = myPlayer.getBody().getGlobalBounds();
+	keyRec = keySprite.getGlobalBounds();
+
+	if (playerRec.intersects(keyRec))
+	{
+		gameMode = game_win;
+	}
 
 	for (int count = 0; count < MAX_GUARDS; count++)
 	{
@@ -419,6 +455,7 @@ void Game::collisionDetectionPlayer()
 			{
 				myPlayer.decreaseLives();
 				health--;
+				m_damageSound.play();
 		
 			}
 		}
@@ -432,11 +469,14 @@ void Game::collisionDetectionPlayer()
 			{
 				myPlayer.decreaseLives();
 				health--;
-				
+				m_damageSound.play();
 			}
 			
 		}
 	}
+
+
+
 }
 
 
@@ -452,8 +492,6 @@ void Game::restartGame()
 	{
 		enemyGuard[count].reset();
 	}
-	//int posX = (SCREEN_WIDTH / 2) - (64 / 2);
-	//int posY = 61;
 	initializeArray();
 	initializeArray2();
 	health = 5;

@@ -12,6 +12,7 @@
 #include "EnemyGuard.h" // include EnemyGuard header file 
 #include "Bullet.h" // include bullet header file
 #include "Rock.h" // include rock header file
+#include "SFML/Audio.hpp"
 
 
 class Game
@@ -20,8 +21,8 @@ class Game
 
 	Player myPlayer;// player object
 
-	static const int MAX_ENEMIES = 2;
-	Enemy enemies[MAX_ENEMIES]; // enemy array of 2 that protects the key 
+	static const int MAX_ENEMIES = 3;
+	Enemy enemies[MAX_ENEMIES]; // enemy array of 3 that protects the key 
 
 	static const int MAX_GUARDS = 4; 
 	EnemyGuard enemyGuard[MAX_GUARDS]; // enemy array of 4 that are guards and shoot
@@ -32,6 +33,9 @@ class Game
 
 	sf::Texture backgroundTexture; // texture for the background
 	sf::Sprite backgroundSprite; // sprite for the background
+
+	sf::Texture keyTexture; // texture for the key that needs to be secured by the player
+	sf::Sprite keySprite; // sprite used for the key that needs to be secured also 
 
 	sf::RenderWindow window;
 
@@ -61,6 +65,11 @@ public:
 	int score = 0; 
 	int health = 5;
 
+	//sounds for the game
+	sf::Sound m_damageSound;
+	sf::SoundBuffer m_damageBuffer;
+	sf::Sound m_backgroundMusic;
+	sf::SoundBuffer m_backgroundBuffer;
 
 public:	  // declaration of member functions	
 	Game(); // default constructor
