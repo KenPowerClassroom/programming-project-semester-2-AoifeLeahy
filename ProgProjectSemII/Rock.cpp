@@ -17,7 +17,7 @@ Rock::Rock() // default constructor
 
 void Rock::loadImage()
 {
-	if (!texture.loadFromFile("ASSETS\\IMAGES\\fireball_left.png"))
+	if (!texture.loadFromFile("ASSETS\\IMAGES\\rock.png"))
 	{
 		std::cout << "problem loading rock" << std::endl;
 	}

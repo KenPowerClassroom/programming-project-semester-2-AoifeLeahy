@@ -24,24 +24,25 @@ EnemyGuard::EnemyGuard()
 
 void EnemyGuard::loadImage()
 {
-	if (!upTexture.loadFromFile("ASSETS//IMAGES//enemy2_up.png"))
+	if (!upTexture.loadFromFile("ASSETS//IMAGES//enemyGuard_up.png"))
 	{
 		std::cout << "problem loading player up image file";
 	}
-	if (!downTexture.loadFromFile("ASSETS//IMAGES//enemy2_down.png"))
+	if (!downTexture.loadFromFile("ASSETS//IMAGES//enemyGuard_down.png"))
 	{
 		std::cout << "problem loading player image down file";
 	}
-	if (!leftTexture.loadFromFile("ASSETS//IMAGES//enemy2_left.png"))
+	if (!leftTexture.loadFromFile("ASSETS//IMAGES//enemyGuard_left.png"))
 	{
 		std::cout << "problem loading player image left file";
 	}
-	if (!rightTexture.loadFromFile("ASSETS//IMAGES//enemy2_right.png"))
+	if (!rightTexture.loadFromFile("ASSETS//IMAGES//enemyGuard_right.png"))
 	{
 		std::cout << "problem loading player image right file";
 	}
 
 	sprite.setTexture(rightTexture);
+	sprite.setScale(1.5f, 1.5f);
 }
 
 sf::Sprite EnemyGuard::getBody()
@@ -85,10 +86,12 @@ void EnemyGuard::moveEnemyGuard()
 	if (movingRight)
 	{
 		pos.x += speed;
+		sprite.setTexture(rightTexture);
 	}
 	else
 	{
 		pos.x -= speed;
+		sprite.setTexture(leftTexture);
 	}
 	if (pos.y <= initialPosY - maxDistance || pos.y >= initialPosY + maxDistance)
 	{
@@ -97,6 +100,7 @@ void EnemyGuard::moveEnemyGuard()
 	if (movingDown)
 	{
 		pos.y += 1;
+		sprite.setTexture(downTexture);
 	}
 	else
 	{

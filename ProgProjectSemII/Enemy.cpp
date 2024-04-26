@@ -22,24 +22,25 @@ Enemy::Enemy()
 
 void Enemy::loadImage()
 {
-	if (!upTexture.loadFromFile("ASSETS//IMAGES//enemy1_up.png"))
+	if (!upTexture.loadFromFile("ASSETS//IMAGES//enemyProtector_up.png"))
 	{
 		std::cout << "problem loading player up image file";
 	}
-	if (!downTexture.loadFromFile("ASSETS//IMAGES//enemy1_down.png"))
+	if (!downTexture.loadFromFile("ASSETS//IMAGES//enemyProtector_down.png"))
 	{
 		std::cout << "problem loading player image down file";
 	}
-	if (!leftTexture.loadFromFile("ASSETS//IMAGES//enemy1_left.png"))
+	if (!leftTexture.loadFromFile("ASSETS//IMAGES//enemyProtector_left.png"))
 	{
 		std::cout << "problem loading player image left file";
 	}
-	if (!rightTexture.loadFromFile("ASSETS//IMAGES//enemy1_right.png"))
+	if (!rightTexture.loadFromFile("ASSETS//IMAGES//enemyProtector_right.png"))
 	{
 		std::cout << "problem loading player image right file";
 	}
 
 	sprite.setTexture(rightTexture);
+	sprite.setScale(1.5f, 1.5f);
 }
 
 sf::Sprite Enemy::getBody()

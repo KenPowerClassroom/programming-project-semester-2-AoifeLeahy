@@ -42,6 +42,7 @@ void Player::loadImage()
 	}
 
 	sprite.setTexture(leftTexture);
+	sprite.setScale(1.5f, 1.5f);
 }
 
 sf::Sprite Player::getBody()
