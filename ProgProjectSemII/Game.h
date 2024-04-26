@@ -70,6 +70,12 @@ public:
 	sf::SoundBuffer m_damageBuffer;
 	sf::Sound m_backgroundMusic;
 	sf::SoundBuffer m_backgroundBuffer;
+	sf::Sound m_gameOver;
+	sf::SoundBuffer m_gameOverBuffer;
+	sf::Sound m_throwRock;
+	sf::SoundBuffer m_throwBuffer;
+	sf::Sound m_enemyHit;
+	sf::SoundBuffer m_enemyHitBuffer;
 
 public:	  // declaration of member functions	
 	Game(); // default constructor

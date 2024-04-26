@@ -78,6 +78,7 @@ void Game::loadContent()
 		std::cout << "problem loading background music" << std::endl;
 	}
 	m_backgroundMusic.setBuffer(m_backgroundBuffer);
+
 	if (gameMode == main_screen)
 	{
 		m_backgroundMusic.play();
@@ -94,6 +95,24 @@ void Game::loadContent()
 		std::cout << "problem loading damage sound" << std::endl;
 	}
 	m_damageSound.setBuffer(m_damageBuffer);
+
+	if (!m_gameOverBuffer.loadFromFile("ASSETS\\AUDIO\\gameOver.wav"))
+	{
+		std::cout << "problem loading game over sound" << std::endl;
+	}
+	m_gameOver.setBuffer(m_gameOverBuffer);
+	
+	if (!m_throwBuffer.loadFromFile("ASSETS\\AUDIO\\throwing_rock.wav"))
+	{
+		std::cout << "problem loading throwing sound" << std::endl;
+	}
+	m_throwRock.setBuffer(m_throwBuffer);
+
+	if (!m_enemyHitBuffer.loadFromFile("ASSETS\\AUDIO\\enemy_hit.wav"))
+	{
+		std::cout << "problem loading enemy hitting sound" << std::endl;
+	}
+	m_enemyHit.setBuffer(m_enemyHitBuffer);
 
 	m_title.setPosition(200,30);
 	m_title.setFont(m_font);
@@ -247,12 +266,15 @@ void Game::update()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			{
 				rock.fired(myPlayer);
+				m_throwRock.play();
 			}
 			rock.move();
 		}
 		if (myPlayer.getAlive() == false)
 		{
 			gameMode = game_over;
+			m_backgroundMusic.stop();
+			m_gameOver.play();
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -299,6 +321,7 @@ void Game::update()
 		{
 			gameMode = game_Play;
 			restartGame();
+			
 		}
 	}
 	
@@ -408,7 +431,7 @@ void Game::collisionDetectionEnemy()
 					rock.reset(myPlayer);
 					score = score + 2;
 					scoreText.setString("Score: " + std::to_string(score));
-					m_damageSound.play();
+					m_enemyHit.play();
 				}
 			}
 		}
@@ -423,7 +446,7 @@ void Game::collisionDetectionEnemy()
 					rock.reset(myPlayer);
 					score = score + 2;
 					scoreText.setString("Score: " + std::to_string(score));
-					m_damageSound.play();
+					m_enemyHit.play();
 				}
 			}
 		}
@@ -496,6 +519,7 @@ void Game::restartGame()
 	initializeArray2();
 	health = 5;
 	score = 0; 
+	m_backgroundMusic.play();
 	
 
 }
