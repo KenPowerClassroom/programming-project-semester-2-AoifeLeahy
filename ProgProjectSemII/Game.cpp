@@ -261,6 +261,7 @@ void Game::update()
 		collisionDetectionEnemy();
 		collisionDetectionPlayer();
 
+
 		if (myPlayer.getAlive())
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
@@ -305,6 +306,15 @@ void Game::update()
 		for (int index = 0; index < MAX_GUARDS; index++)
 		{
 			enemyGuard[index].moveEnemyGuard(); // calls the function to move the enemy guard objects
+		}
+
+		if (follower.getAlive())
+		{
+			follower.move(myPlayer);
+		}
+		if (follower.getAlive() == false)
+		{
+			follower.reset();
 		}
 	}
 	else if (gameMode == game_win)
@@ -357,27 +367,34 @@ void Game::draw()
 		if (myPlayer.getAlive())
 		{
 			window.draw(myPlayer.getBody()); // this draws the player object 
-			if (rock.isActive)
-			{
-				window.draw(rock.getBody());
-			}
-	
-			for (int index = 0; index < MAX_ENEMIES; index++)
-			{
-				if (enemies[index].getAlive())
-				{
-					window.draw(enemies[index].getBody()); // this draws the enemy protector object
-				}
-			}
+		}
 
-			for (int index = 0; index < MAX_GUARDS; index++)
+		if (rock.isActive)
+		{
+			window.draw(rock.getBody());
+		}
+
+		if (follower.getAlive())
+		{
+			window.draw(follower.getBody());
+		}
+	
+		for (int index = 0; index < MAX_ENEMIES; index++)
+		{
+			if (enemies[index].getAlive())
 			{
-				if (enemyGuard[index].getAlive())
-				{
-					window.draw(enemyGuard[index].getBody()); // this draws the enemy guard object
-				}
+				window.draw(enemies[index].getBody()); // this draws the enemy protector object
 			}
 		}
+
+		for (int index = 0; index < MAX_GUARDS; index++)
+		{
+			if (enemyGuard[index].getAlive())
+			{
+				window.draw(enemyGuard[index].getBody()); // this draws the enemy guard object
+			}
+		}
+	
 	}
 	else if (gameMode == game_win)
 	{
@@ -405,8 +422,6 @@ void Game::draw()
 	//window.draw(enemyBullet.getBody()); // this draws the bullet object
 
 	
-
-	
 	window.display();
 }
 
@@ -415,6 +430,7 @@ void Game::collisionDetectionEnemy()
 	sf::FloatRect enemyGuardRec;
 	sf::FloatRect rockRec;
 	sf::FloatRect enemyProtectorRec;
+	sf::FloatRect followEnemyRec;
 
 	if (rock.isActive)
 	{
@@ -450,6 +466,20 @@ void Game::collisionDetectionEnemy()
 				}
 			}
 		}
+
+		if (follower.getAlive())
+		{
+			followEnemyRec = follower.getBody().getGlobalBounds();
+			if (rockRec.intersects(followEnemyRec))
+			{
+				follower.decreaseLives();
+				follower.setPosition(800, 600);
+				rock.reset(myPlayer);
+				score = score + 2;
+				scoreText.setString("Score: " + std::to_string(score));
+				m_enemyHit.play();
+			}
+		}
 	}
 }
 
@@ -458,6 +488,7 @@ void Game::collisionDetectionPlayer()
 	sf::FloatRect enemyGuardRec;
 	sf::FloatRect playerRec;
 	sf::FloatRect enemyProtectorRec;
+	sf::FloatRect followEnemyRec;
 	sf::FloatRect rockRec;
 	sf::FloatRect keyRec;
 
@@ -498,6 +529,17 @@ void Game::collisionDetectionPlayer()
 		}
 	}
 
+	if (follower.getAlive())
+	{
+		followEnemyRec = follower.getBody().getGlobalBounds();
+		if (playerRec.intersects(followEnemyRec))
+		{
+			myPlayer.decreaseLives();
+			health--;
+			follower.setPosition(800, 600);
+			m_damageSound.play();
+		}
+	}
 
 
 }
@@ -515,6 +557,7 @@ void Game::restartGame()
 	{
 		enemyGuard[count].reset();
 	}
+	follower.reset();
 	initializeArray();
 	initializeArray2();
 	health = 5;

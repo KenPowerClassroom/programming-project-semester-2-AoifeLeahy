@@ -2,7 +2,6 @@
 #pragma once
 
 #include "Globals.h"
-#include "Bullet.h"
 #include "SFML/Graphics.hpp"
 
 #include <iostream>

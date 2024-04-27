@@ -4,7 +4,6 @@
 #include "SFML/Graphics.hpp"
 #include "Globals.h"
 #include "Player.h"
-#include "Enemy.h"
 #include <iostream>
 
 class Rock
@@ -15,7 +14,6 @@ class Rock
 	sf::Sprite sprite; // sprite used for the rock
 
 	int direction; // the direction the rock is going
-	int enemyDirection;
 	int speed; // how fast the rock is being thrown
 
 	bool isFired = false; // is the rock fired.
@@ -30,7 +28,6 @@ public:
 
 	sf::Sprite getBody();
 
-	//void setUpRock(sf::Vector2f& enemyPos, Enemy enemies);
 	void setPosition(sf::Vector2f& position); 
 	void move();// moves the rock
 

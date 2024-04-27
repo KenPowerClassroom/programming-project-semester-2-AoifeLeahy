@@ -26,19 +26,19 @@ void EnemyGuard::loadImage()
 {
 	if (!upTexture.loadFromFile("ASSETS//IMAGES//enemyGuard_up.png"))
 	{
-		std::cout << "problem loading player up image file";
+		std::cout << "problem loading enemyGuard up image file";
 	}
 	if (!downTexture.loadFromFile("ASSETS//IMAGES//enemyGuard_down.png"))
 	{
-		std::cout << "problem loading player image down file";
+		std::cout << "problem loading enemyGuard image down file";
 	}
 	if (!leftTexture.loadFromFile("ASSETS//IMAGES//enemyGuard_left.png"))
 	{
-		std::cout << "problem loading player image left file";
+		std::cout << "problem loading enemyGuard image left file";
 	}
 	if (!rightTexture.loadFromFile("ASSETS//IMAGES//enemyGuard_right.png"))
 	{
-		std::cout << "problem loading player image right file";
+		std::cout << "problem loading enemyGuard image right file";
 	}
 
 	sprite.setTexture(rightTexture);

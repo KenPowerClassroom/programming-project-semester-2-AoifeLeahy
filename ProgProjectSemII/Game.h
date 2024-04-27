@@ -10,7 +10,7 @@
 #include "Player.h"   // include Player header file
 #include "Enemy.h"   // include Enemy header file
 #include "EnemyGuard.h" // include EnemyGuard header file 
-#include "Bullet.h" // include bullet header file
+#include "FollowEnemy.h" // followEnemy header file 
 #include "Rock.h" // include rock header file
 #include "SFML/Audio.hpp"
 
@@ -27,9 +27,9 @@ class Game
 	static const int MAX_GUARDS = 4; 
 	EnemyGuard enemyGuard[MAX_GUARDS]; // enemy array of 4 that are guards and shoot
 
-	Bullet enemyBullet; // bullet object
-
 	Rock rock; // rock object 
+
+	FollowEnemy follower; // enemy that follows the player object
 
 	sf::Texture backgroundTexture; // texture for the background
 	sf::Sprite backgroundSprite; // sprite for the background
@@ -76,6 +76,7 @@ public:
 	sf::SoundBuffer m_throwBuffer;
 	sf::Sound m_enemyHit;
 	sf::SoundBuffer m_enemyHitBuffer;
+
 
 public:	  // declaration of member functions	
 	Game(); // default constructor

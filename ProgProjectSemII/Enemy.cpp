@@ -24,19 +24,19 @@ void Enemy::loadImage()
 {
 	if (!upTexture.loadFromFile("ASSETS//IMAGES//enemyProtector_up.png"))
 	{
-		std::cout << "problem loading player up image file";
+		std::cout << "problem loading protector up image file";
 	}
 	if (!downTexture.loadFromFile("ASSETS//IMAGES//enemyProtector_down.png"))
 	{
-		std::cout << "problem loading player image down file";
+		std::cout << "problem loading protector image down file";
 	}
 	if (!leftTexture.loadFromFile("ASSETS//IMAGES//enemyProtector_left.png"))
 	{
-		std::cout << "problem loading player image left file";
+		std::cout << "problem loading protector image left file";
 	}
 	if (!rightTexture.loadFromFile("ASSETS//IMAGES//enemyProtector_right.png"))
 	{
-		std::cout << "problem loading player image right file";
+		std::cout << "problem loading protector image right file";
 	}
 
 	sprite.setTexture(rightTexture);
