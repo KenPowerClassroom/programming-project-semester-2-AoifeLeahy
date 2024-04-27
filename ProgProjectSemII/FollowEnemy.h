@@ -42,6 +42,8 @@ public:
 
 	void move(Player myPlayer); // used to move the enemy up while staying in the boundary of the screen
 
+	void setSpeed(int newSpeed);
+	int getSpeed(); // gets the new speed of the follower enemy when all guards are dead
 
 	void setAlive(int newAlive);
 	int getAlive(); // this makes it return if alive or not

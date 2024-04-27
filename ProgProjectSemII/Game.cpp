@@ -305,7 +305,15 @@ void Game::update()
 		}
 		for (int index = 0; index < MAX_GUARDS; index++)
 		{
-			enemyGuard[index].moveEnemyGuard(); // calls the function to move the enemy guard objects
+			if (enemyGuard[index].getAlive())
+			{
+				enemyGuard[index].moveEnemyGuard(); // calls the function to move the enemy guard objects
+			}
+			else if (enemyGuard[0].getAlive() == false && enemyGuard[1].getAlive() == false)
+			{
+				follower.getSpeed();
+			}
+			
 		}
 
 		if (follower.getAlive())

@@ -12,7 +12,7 @@ FollowEnemy::FollowEnemy()
 	imageWidth = 64;
 	imageHeight = 64;
 
-	speed = 2;
+	speed = 1;
 	health = 3;
 
 	initialPosX = 800;
@@ -88,6 +88,17 @@ void FollowEnemy::move(Player myPlayer)
 	}
 
 	sprite.setPosition(posEnemy);
+}
+
+void FollowEnemy::setSpeed(int newSpeed)
+{
+	speed = newSpeed;
+}
+
+int FollowEnemy::getSpeed()
+{
+	speed = 2;
+	return speed;
 }
 
 void FollowEnemy::setAlive(int newAlive)
