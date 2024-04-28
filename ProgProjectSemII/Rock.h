@@ -18,8 +18,6 @@ class Rock
 
 	bool isFired = false; // is the rock fired.
 
-	sf::Vector2f location;
-
 
 public:
 	Rock(); // constructor

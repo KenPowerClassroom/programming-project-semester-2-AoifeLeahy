@@ -34,13 +34,8 @@ public:
 	sf::Vector2f getPosition(); 
 
 	int getDirection(); 
-
-	void draw(); // used to draw the player in the game
-	void shoot(); // this is the function used to cause the rock to shoot
 	
 	void update();
-
-	void dies(); // used when the player dies and loses the game
 
 	void moveRight(); // used to move the player to the right but withing the boundary of the screen
 	void moveLeft(); // player moves left

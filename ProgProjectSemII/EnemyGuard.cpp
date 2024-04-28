@@ -77,7 +77,7 @@ void EnemyGuard::moveEnemyGuard()
 {
 	sf::Vector2f pos(sprite.getPosition());
 
-	int maxDistance = 50;
+	int maxDistance = 50; // the distance for the boundary checking
 
 	if (pos.x <= initialPosX - maxDistance || pos.x >= initialPosX + maxDistance)
 	{

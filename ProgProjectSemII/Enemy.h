@@ -37,17 +37,14 @@ public:
 	void setPosition();
 	void setPosition(int xPos, int yPos);
 
-
-	void draw(); // draws the enemy
-
 	void moveEnemies(); // used to move the enemy up while staying in the boundary of the screen
 	
 
 	void setAlive(int newAlive);
 	int getAlive(); // this makes it return if alive or not
-	void decreaseLives();
+	void decreaseLives(); // makes the health decrease when collision is detected
 	
-	void reset();
+	void reset(); // this resets the enemy when the game is restarted
 
 };
 	

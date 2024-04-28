@@ -65,7 +65,7 @@ void FollowEnemy::move(Player myPlayer)
 	sf::Vector2f posEnemy = sprite.getPosition();
 	sf::Vector2f posPlayer = myPlayer.getBody().getPosition();
 
-	if (posEnemy.y > posPlayer.y)
+	if (posEnemy.y > posPlayer.y) 
 	{
 		posEnemy.y -= speed;
 		sprite.setTexture(upTexture);

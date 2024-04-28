@@ -64,25 +64,25 @@ void Enemy::moveEnemies()
 {
 	sf::Vector2f pos(sprite.getPosition());
 
-	if (pos.x >= 50 && pos.y == 150 && pos.x < 200)
+	if (pos.x >= 50 && pos.y == 150 && pos.x < 200) // moves the enemy to the left until a boundary is reached
 	{
 		pos.x += speed;
 		direction = EAST;
 		sprite.setTexture(rightTexture);
 	}
-	else if (pos.y < 300 && pos.y >= 150 && pos.x == 200)
+	else if (pos.y < 300 && pos.y >= 150 && pos.x == 200) // moves the enemy down until a boundary is reached
 	{
 		direction = SOUTH;
 		sprite.setTexture(downTexture);
 		pos.y += speed;
 	}
-	else if (pos.y == 300 && pos.x < 201 && pos.x >= 51)
+	else if (pos.y == 300 && pos.x < 201 && pos.x >= 51) // moves the enemy to the right until a boundary is reached
 	{
 		direction = WEST;
 		sprite.setTexture(leftTexture);
 		pos.x -= speed;
 	}
-	else if (pos.x == 50 && pos.y <= 300 && pos.y > 150)
+	else if (pos.x == 50 && pos.y <= 300 && pos.y > 150) // moves the enemy up until a boundary is reached
 	{
 		direction = NORTH;
 		sprite.setTexture(upTexture);
